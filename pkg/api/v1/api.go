@@ -3,6 +3,8 @@ package v1
 import (
 	"net/http"
 
+	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/commits"
+
 	"github.com/go-openapi/loads"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
@@ -34,6 +36,7 @@ func New(rs repository.Service, us user.Service) (*API, error) {
 		return middleware.Spec("", nil, sourcepodsAPI.Context().RoutesHandler(b))
 	}
 
+	sourcepodsAPI.CommitsListCommitsHandler = ListCommitsHandler(rs)
 	sourcepodsAPI.RepositoriesCreateRepositoryHandler = CreateRepositoryHandler(rs)
 	sourcepodsAPI.RepositoriesGetOwnerRepositoriesHandler = GetOwnerRepositoriesHandler(rs)
 	sourcepodsAPI.RepositoriesGetRepositoryBranchesHandler = GetRepositoryBranchesHandler(rs)
@@ -46,6 +49,12 @@ func New(rs repository.Service, us user.Service) (*API, error) {
 	return &API{
 		Handler: sourcepodsAPI.Serve(nil),
 	}, nil
+}
+
+func ListCommitsHandler(rs repository.Service) commits.ListCommitsHandlerFunc {
+	return func(params commits.ListCommitsParams) middleware.Responder {
+		panic("implement me")
+	}
 }
 
 func convertRepository(r *repository.Repository) *models.Repository {
