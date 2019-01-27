@@ -19,6 +19,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/commits"
 	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/repositories"
 	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/users"
 )
@@ -57,6 +58,9 @@ func NewSourcepodsAPI(spec *loads.Document) *SourcepodsAPI {
 		}),
 		UsersGetUserMeHandler: users.GetUserMeHandlerFunc(func(params users.GetUserMeParams) middleware.Responder {
 			return middleware.NotImplemented("operation UsersGetUserMe has not yet been implemented")
+		}),
+		CommitsListCommitsHandler: commits.ListCommitsHandlerFunc(func(params commits.ListCommitsParams) middleware.Responder {
+			return middleware.NotImplemented("operation CommitsListCommits has not yet been implemented")
 		}),
 		UsersListUsersHandler: users.ListUsersHandlerFunc(func(params users.ListUsersParams) middleware.Responder {
 			return middleware.NotImplemented("operation UsersListUsers has not yet been implemented")
@@ -107,6 +111,8 @@ type SourcepodsAPI struct {
 	UsersGetUserHandler users.GetUserHandler
 	// UsersGetUserMeHandler sets the operation handler for the get user me operation
 	UsersGetUserMeHandler users.GetUserMeHandler
+	// CommitsListCommitsHandler sets the operation handler for the list commits operation
+	CommitsListCommitsHandler commits.ListCommitsHandler
 	// UsersListUsersHandler sets the operation handler for the list users operation
 	UsersListUsersHandler users.ListUsersHandler
 	// UsersUpdateUserHandler sets the operation handler for the update user operation
@@ -196,6 +202,10 @@ func (o *SourcepodsAPI) Validate() error {
 
 	if o.UsersGetUserMeHandler == nil {
 		unregistered = append(unregistered, "users.GetUserMeHandler")
+	}
+
+	if o.CommitsListCommitsHandler == nil {
+		unregistered = append(unregistered, "commits.ListCommitsHandler")
 	}
 
 	if o.UsersListUsersHandler == nil {
@@ -333,6 +343,11 @@ func (o *SourcepodsAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/users/me"] = users.NewGetUserMe(o.context, o.UsersGetUserMeHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/commits/{owner}/{name}"] = commits.NewListCommits(o.context, o.CommitsListCommitsHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)

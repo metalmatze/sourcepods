@@ -11,6 +11,7 @@ import (
 	middleware "github.com/go-openapi/runtime/middleware"
 
 	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations"
+	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/commits"
 	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/repositories"
 	"github.com/sourcepods/sourcepods/pkg/api/v1/restapi/operations/users"
 )
@@ -52,6 +53,9 @@ func configureAPI(api *operations.SourcepodsAPI) http.Handler {
 	})
 	api.UsersGetUserMeHandler = users.GetUserMeHandlerFunc(func(params users.GetUserMeParams) middleware.Responder {
 		return middleware.NotImplemented("operation users.GetUserMe has not yet been implemented")
+	})
+	api.CommitsListCommitsHandler = commits.ListCommitsHandlerFunc(func(params commits.ListCommitsParams) middleware.Responder {
+		return middleware.NotImplemented("operation commits.ListCommits has not yet been implemented")
 	})
 	api.UsersListUsersHandler = users.ListUsersHandlerFunc(func(params users.ListUsersParams) middleware.Responder {
 		return middleware.NotImplemented("operation users.ListUsers has not yet been implemented")

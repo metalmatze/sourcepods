@@ -40,6 +40,48 @@ func init() {
   },
   "basePath": "/v1",
   "paths": {
+    "/commits/{owner}/{name}": {
+      "get": {
+        "tags": [
+          "commits"
+        ],
+        "summary": "Get commits of a repository",
+        "operationId": "listCommits",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The owner's username",
+            "name": "owner",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The repository's name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The ref to get the commits for",
+            "name": "ref",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all commits for that repository",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/commit"
+              }
+            }
+          }
+        }
+      }
+    },
     "/repositories": {
       "post": {
         "tags": [
@@ -386,6 +428,58 @@ func init() {
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "commit": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "body": {
+          "type": "string"
+        },
+        "committer": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "hash": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "tree": {
           "type": "string"
         }
       }
@@ -521,6 +615,48 @@ func init() {
   },
   "basePath": "/v1",
   "paths": {
+    "/commits/{owner}/{name}": {
+      "get": {
+        "tags": [
+          "commits"
+        ],
+        "summary": "Get commits of a repository",
+        "operationId": "listCommits",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The owner's username",
+            "name": "owner",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The repository's name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The ref to get the commits for",
+            "name": "ref",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all commits for that repository",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/commit"
+              }
+            }
+          }
+        }
+      }
+    },
     "/repositories": {
       "post": {
         "tags": [
@@ -867,6 +1003,58 @@ func init() {
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "commit": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "body": {
+          "type": "string"
+        },
+        "committer": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "hash": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "tree": {
           "type": "string"
         }
       }

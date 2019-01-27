@@ -19,6 +19,34 @@ schemes:
 basePath: '/v1'
 
 paths:
+  /commits/{owner}/{name}:
+    get:
+      summary: Get commits of a repository
+      operationId: listCommits
+      tags:
+        - commits
+      parameters:
+        - in: path
+          name: owner
+          type: string
+          required: true
+          description: The owner's username
+        - in: path
+          name: name
+          type: string
+          required: true
+          description: The repository's name
+        - in: query
+          name: ref
+          type: string
+          description: The ref to get the commits for
+      responses:
+        200:
+          description: A list of all commits for that repository
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/commit'
   /repositories:
     post:
       summary: Create a new repository
@@ -249,6 +277,41 @@ definitions:
         type: string
       type:
         type: string
+  commit:
+    type: object
+    properties:
+      hash:
+        type: string
+      tree:
+        type: string
+      parent:
+        type: string
+      message:
+        type: string
+      body:
+        type: string
+      author:
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+            format: email
+          date:
+            type: string
+            format: 'date-time'
+      committer:
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+            format: email
+          date:
+            type: string
+            format: 'date-time'
   repository:
     type: object
     required:

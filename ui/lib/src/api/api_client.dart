@@ -39,6 +39,10 @@ class ApiClient {
           return value is double ? value : double.parse('$value');
         case 'Branch':
           return new Branch.fromJson(value);
+        case 'Commit':
+          return new Commit.fromJson(value);
+        case 'CommitAuthor':
+          return new CommitAuthor.fromJson(value);
         case 'Error':
           return new Error.fromJson(value);
         case 'NewRepository':

@@ -13,10 +13,13 @@ part 'auth/api_key_auth.dart';
 part 'auth/oauth.dart';
 part 'auth/http_basic_auth.dart';
 
+part 'api/commits_api.dart';
 part 'api/repositories_api.dart';
 part 'api/users_api.dart';
 
 part 'model/branch.dart';
+part 'model/commit.dart';
+part 'model/commit_author.dart';
 part 'model/error.dart';
 part 'model/new_repository.dart';
 part 'model/repository.dart';
